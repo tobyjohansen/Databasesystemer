@@ -1,0 +1,11 @@
+SELECT * FROM mydb.person;
+SELECT * FROM person_has_vaksinasjon;
+SELECT * FROM post;
+SELECT * FROM kommune;
+
+SELECT count(DISTINCT person_has_vaksinasjon.person_personnummer) AS "Personer", kommune.navn
+FROM (((person
+INNER JOIN post ON person.post_PostNr = post.PostNr)
+INNER JOIN kommune ON post.kommune_kommuneID = kommune.kommuneID)
+INNER JOIN person_has_vaksinasjon ON person.personnummer = person_has_vaksinasjon.person_personnummer)
+GROUP BY kommune.navn;
